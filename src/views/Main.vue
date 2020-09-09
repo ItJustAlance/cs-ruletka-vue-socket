@@ -7,12 +7,10 @@
       .basic-panel
         StaticGame
         .basic-right
-          .info-text Чтобы вносить предметы в игру, <a href="#">необходимо авторизоваться</a> через Steam
-          if aut == true
-            a.btn-steam(href="#")
-              svgIcon(name='ic-gun')
-              | Внести предметы
+          if aut !== true
+            BtnAddItem
           else
+            .info-text Чтобы вносить предметы в игру, <a href="#">необходимо авторизоваться</a> через Steam
             a.btn-steam(href="#")
               svgIcon(name='steam')
               | Войти через Steam

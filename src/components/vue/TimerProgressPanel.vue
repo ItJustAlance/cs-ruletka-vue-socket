@@ -2,21 +2,110 @@
 .time-progress-panel
   .progress-block
     .progress
-      .progress-bar(style="width: 40%")
-      .progress-text 16/100 <span>Предметов</span>
+      .progress-bar(:style="{'width': `${circleDasharray}%`}")
+      .progress-text(:class="remainingPathColor") 16/100 <span>Предметов</span>
   .progress__and Или через
   .progress__timer
     svgIcon(name='timer')
-    | 01:57
+    | {{ formattedTimeLeft }}
+
 </template>
 
 <script>
+// https://codesandbox.io/s/basetimer-no-parent-control-6frgv?from-embed
+import {mapMutations} from "vuex";
 
+const FULL_DASH_ARRAY = 100;
+const WARNING_THRESHOLD = 8;
+const ALERT_THRESHOLD = 0;
 
+const COLOR_CODES = {
+  info: {
+    color: ""
+  },
+  warning: {
+    color: "black",
+    threshold: WARNING_THRESHOLD
+  },
+  alert: {
+    color: "black",
+    threshold: ALERT_THRESHOLD
+  }
+};
+
+const TIME_LIMIT = 20;
 
 export default {
   name: "TimerProgressPanel",
-  components: {}
+
+    data() {
+      return {
+        timePassed: 0,
+        timerInterval: null
+      };
+    },
+
+    computed: {
+      circleDasharray() {
+        return `${100 - (this.timeFraction * FULL_DASH_ARRAY).toFixed(2)}`;
+      },
+
+      formattedTimeLeft() {
+        const timeLeft = this.timeLeft;
+        const minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        if (seconds < 10) {
+          seconds = `0${seconds}`;
+        }
+
+        return `${minutes}:${seconds}`;
+      },
+
+      timeLeft() {
+        return TIME_LIMIT - this.timePassed;
+      },
+
+      timeFraction() {
+        const rawTimeFraction = this.timeLeft / TIME_LIMIT;
+        return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+      },
+
+      remainingPathColor() {
+        const { alert, warning, info } = COLOR_CODES;
+
+        if (this.timeLeft <= alert.threshold) {
+          return alert.color;
+        } else if (this.timeLeft <= warning.threshold) {
+          return warning.color;
+        } else {
+          return info.color;
+        }
+      }
+    },
+
+    watch: {
+      timeLeft(newValue) {
+        if (newValue === 0) {
+          this.onTimesUp();
+        }
+      }
+    },
+
+    mounted() {
+      this.startTimer();
+    },
+
+    methods: {
+      onTimesUp() {
+        clearInterval(this.timerInterval);
+      },
+
+      startTimer() {
+        this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
+      }
+    }
+
 };
 
 
@@ -64,6 +153,7 @@ export default {
   &-bar
     background: url(#{$ipath}/bg-progress.png) 0 0 repeat-x
     border-radius: 24px
+    transition: 1.5s linear all
   &-text
     position: absolute
     top: 2px
@@ -72,6 +162,11 @@ export default {
     text-align: center
     font-size: 16px
     font-family: $font2
+    transition: 1.5s linear all
+    &.black
+      color: #35373F
+      span
+        color: #000
     span
       display: block
       color: #B3B6C5
@@ -91,6 +186,7 @@ export default {
     display: inline-flex
     align-items: center
     font-family: $font2
+    min-width: 112px
     .svg-icon
       width: 32px
       height: 32px
