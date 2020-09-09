@@ -6,10 +6,28 @@ button.btn-add-item
 
 <script>
 
+import { mapMutations } from 'vuex';
 
 export default {
   name: "BtnAddItem",
-  components: {}
+  data() {
+    return {
+      title: '',
+      body: '',
+    };
+  },
+  methods: {
+    ...mapMutations(['createPost']),
+    click() {
+      this.createPost({
+        title: this.title,
+        body: this.body,
+        id: Date.now(),
+      });
+      this.title = this.body = '';
+    },
+
+  },
 };
 
 
