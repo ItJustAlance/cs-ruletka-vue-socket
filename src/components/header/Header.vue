@@ -3,7 +3,7 @@
 header.header
   .container
     .b-logo
-      a.logo(href='#')
+      router-link.logo(to="/")
         <img src="@/assets/img/logo.png" alt="">
     .header__icons
       .header__icons--sound
@@ -61,14 +61,12 @@ header.header
 </template>
 
 <script>
-import SvgIcon from '@/components/SvgIcon';
 
 
 export default {
-name: "Header",
-  components: {SvgIcon },
-
-}
+name: 'Header',
+  components: { },
+};
 </script>
 
 <style lang="sass">
@@ -139,9 +137,9 @@ name: "Header",
       position: relative
       left: 2px
     &:hover
-      .ico
+      .svg-icon
         fill: $clrGreen
-    .ico
+    .svg-icon
       width: 13px
       height: 13px
       fill: #A8AEBF
@@ -192,12 +190,8 @@ name: "Header",
   &__lang
     position: relative
     background: url(#{$ipath}/arr-lang.png) 100% 13px no-repeat
-
     display: inline-block
     vertical-align: top
-    &.active
-      .header__lang--list
-
     &--value
       cursor: pointer
       padding-right: 21px
@@ -249,7 +243,6 @@ name: "Header",
           height: auto
           width: 100%
           margin-bottom: 20px
-
         a
           display: inline-flex
           white-space: nowrap

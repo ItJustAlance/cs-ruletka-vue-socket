@@ -12,7 +12,19 @@ import store from './store';
 import App from './App.vue';
 
 
+// components jquery
+import jqueryNicescroll from 'jquery.nicescroll';
+window.jqueryNicescroll = jqueryNicescroll;
 
+
+
+// Подключение скриптов jquery
+
+  // подключаем скролл
+import './assets/js/scroll';
+
+// Globally register all `_base`-prefixed components
+import './components/_global';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
@@ -22,11 +34,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 // import VueClipboard from 'vue-clipboard2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import Home from '@/views/Home.vue';
+// import index from '@/views/Index.vue';
 
-
-
-// svg
 
 
 // VueClipboard.config.autoSetContainer = true;
@@ -41,9 +50,9 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'main',
       // component: Home
-      component: () => import(/* webpackChunkName: "about" */ './views/Home.vue')
+      component: () => import('./views/Main.vue')
     },
     {
       path: '/about',
@@ -54,7 +63,6 @@ const router = new VueRouter({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     }
   ]
-
 })
 Vue.use(new VueSocketIO({
   debug: true,

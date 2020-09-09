@@ -2,24 +2,23 @@
 .over
   #app
     Header
-    router-link(to="/about") route about
-    router-link(to="/") route home
-
+    // router-link(to="/about") route about
+    // router-link(to="/") route home
     router-view
 </template>
 
 <script>
 
-import SvgIcon from '@/components/SvgIcon';
-import PostForm from "@/components/post-form/PostForm";
-import Header from "@/components/header/Header";
+import Header from '@/components/header/Header';
 
 export default {
   name: 'app',
-  components: {Header, SvgIcon, PostForm },
+  components: {Header },
 
 
 };
+
+
 </script>
 
 <style lang="sass"  scoped>
