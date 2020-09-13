@@ -1,12 +1,12 @@
 <template lang="pug">
-button.btn-add-item
+button.btn-add-item(@click="addItem")
   svgIcon(name='ic-gun')
   | Внести предметы
 </template>
 
 <script>
 
-import { mapMutations } from 'vuex';
+import {mapActions, mapGetters, mapMutations} from 'vuex';
 
 export default {
   name: "BtnAddItem",
@@ -16,15 +16,13 @@ export default {
       body: '',
     };
   },
+
   methods: {
-    ...mapMutations(['createPost']),
-    click() {
-      this.createPost({
-        title: this.title,
-        body: this.body,
-        id: Date.now(),
-      });
-      this.title = this.body = '';
+    // вызываем action, mapActions из store/ItemsUser с названием fetchPosts
+    ...mapActions(['fetchPosts']),
+
+    addItem() {
+      this.fetchPosts();
     },
 
   },

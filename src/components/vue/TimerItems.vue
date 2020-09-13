@@ -11,16 +11,32 @@ mixin itemScroll()
 .b-scroll-item
   .scrolling
     .scroll-line
-      +itemScroll()
+      .scroll-item(v-for="item in ItemsUser" :key="item.id")
+        .scroll-item__ava
+          span
+            img(src="~@/assets/img/ava2.png", alt="")
+        .scroll-item__break
+          .score 23.9
+          | шанс
+
+
 
 </template>
 
 <script>
-
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "StaticGame",
-  components: {}
+  computed: mapGetters(["ItemsUser"]),
+  methods: mapActions(['fetchPosts']),
+  // регистрируем как компонент PostForm
+  components: {  },
+  async mounted() {
+    // this.$store.dispatch("fetchPosts"); вызываем action, первым параметром передаем название экшена т.е. "fetchPosts"
+    // this.fetchPosts(); обращаемся уже через mapAction внутренний метод
+    
+  }
 };
 
 
