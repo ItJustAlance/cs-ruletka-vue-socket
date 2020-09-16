@@ -1,5 +1,5 @@
 <template lang="pug">
-button.btn-add-item(@click="addItem" v-bind:disabled="{ disabled: g_statusTime }")
+button.btn-add-item(@click="addItem" :disabled="!!g_statusTime")
   svgIcon(name='ic-gun')
   | Внести предметы
 </template>
@@ -27,10 +27,9 @@ export default {
     // вызываем action, mapActions из store/ItemsUser с названием fetchPosts
     ...mapActions(['fetchItemUser']),
     ...mapGetters(['itemUserCount']),
-    ...mapMutations(['mstatusTime']),
+    ...mapMutations(['SET_TIME_END']),
 
     addItem() {
-
       if(itemUserCount !== itemUserCountAll){
         itemUserCount++;
         this.fetchItemUser(itemUserCount);
