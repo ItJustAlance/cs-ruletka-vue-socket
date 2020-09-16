@@ -47,6 +47,7 @@ export default {
   name: 'Index',
   components: { },
   mounted () {
+
     $(function() {
       $(".fair-game-scroll").niceScroll(".fair-game--scrolling",{cursorwidth:"4px",cursorborder: 'none', cursorcolor: 'rgba(255, 255, 255, 0.1)', background: 'rgba(255, 255, 255, 0.1)', bouncescroll: false, nativeparentscrolling: true, autohidemode: false,  railoffset: {  left: 10, right: 10, bottom: 5, top: 0 }}).resize();
       $(".scrolling").niceScroll(".scroll-line",{cursorwidth:"4px",cursorborder: 'none', cursorcolor: 'rgba(255, 255, 255, 0.1)', background: 'rgba(255, 255, 255, 0.1)', bouncescroll: false, nativeparentscrolling: true, autohidemode: false, railoffset: {  left: 0, right: 0, top: 0, bottom: 0 }, railpadding: { top: 0, right: 0, left: 0, bottom: 0 }}).resize();

@@ -3,7 +3,7 @@
   .progress-block
     .progress
       .progress-bar(:style="{'width': `${circleDasharray}%`}")
-      .progress-text(:class="remainingPathColor") 16/100 <span>Предметов</span>
+      .progress-text(:class="remainingPathColor") {{itemUserCount}}/{{g_itemUserAll}} <span>Предметов</span>
   .progress__and Или через
   .progress__timer
     svgIcon(name='timer')
@@ -12,12 +12,15 @@
 </template>
 
 <script>
+
 // https://codesandbox.io/s/basetimer-no-parent-control-6frgv?from-embed
-import {mapMutations} from "vuex";
+
+
 
 const FULL_DASH_ARRAY = 100;
-const WARNING_THRESHOLD = 8;
-const ALERT_THRESHOLD = 0;
+const WARNING_THRESHOLD = 5;
+const ALERT_THRESHOLD = 2;
+
 
 const COLOR_CODES = {
   info: {
@@ -33,7 +36,8 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 20;
+const TIME_LIMIT = 9;
+import { mapGetters, mapMutations} from "vuex";
 
 export default {
   name: "TimerProgressPanel",
@@ -41,11 +45,14 @@ export default {
     data() {
       return {
         timePassed: 0,
-        timerInterval: null
+        timerInterval: null,
+        timeEnd: false,
       };
     },
-
     computed: {
+    // к геттерам обращатся через this
+      ...mapGetters(['itemUserCount', 'g_itemUserAll']),
+
       circleDasharray() {
         return `${100 - (this.timeFraction * FULL_DASH_ARRAY).toFixed(2)}`;
       },
@@ -73,9 +80,10 @@ export default {
 
       remainingPathColor() {
         const { alert, warning, info } = COLOR_CODES;
-
         if (this.timeLeft <= alert.threshold) {
-          return alert.color;
+
+        //
+          return  [alert.color, this.timeEnd];
         } else if (this.timeLeft <= warning.threshold) {
           return warning.color;
         } else {
@@ -83,20 +91,25 @@ export default {
         }
       }
     },
-
     watch: {
       timeLeft(newValue) {
         if (newValue === 0) {
           this.onTimesUp();
+          this.timeEnd = true;
+          this.SET_TIME_END( true);
         }
       }
     },
-
     mounted() {
       this.startTimer();
     },
-
     methods: {
+    //   ...гетеры писать в computed,
+      // ...мутации писать в methods
+
+      ...mapMutations([
+          'SET_TIME_END'
+      ]),
       onTimesUp() {
         clearInterval(this.timerInterval);
       },
@@ -104,7 +117,7 @@ export default {
       startTimer() {
         this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
       }
-    }
+    },
 
 };
 
