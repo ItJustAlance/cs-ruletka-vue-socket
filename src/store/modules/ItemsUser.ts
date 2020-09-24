@@ -30,6 +30,10 @@ export default {
     itemUserCount: [],
     timeEnd: false,
     itemUserAll: 100,
+    stat_UserOnline: 55,
+    stat_GameToday: 33,
+    stat_GameNumber: 3,
+    stat_Bank: 1000,
   },
   // геттер забираем данные из хранилища(state)
   getters: {
@@ -43,9 +47,18 @@ export default {
     g_statusTime(state){
       return state.timeEnd;
     },
-    g_itemUserAll(state){
-      return state.itemUserAll;
-    }
+    g_stat_UserOnline(state){
+      return state.stat_UserOnline;
+    },
+    g_stat_GameToday(state){
+      return state.stat_GameToday;
+    },
+    g_stat_GameNumber(state){
+      return state.stat_GameNumber;
+    },
+    g_stat_Bank(state){
+      return state.stat_Bank;
+    },
 
   }
 }

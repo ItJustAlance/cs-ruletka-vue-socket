@@ -13,14 +13,14 @@
         img(src="~@/assets/img/ic-people.png", alt="")
       .text
         .title Онлайн
-        .num 137
+        .num {{g_stat_UserOnline}}
   .b-info-top
     .b-content
       .icon
         img(src="~@/assets/img/ic-games.png", alt="")
       .text
         .title Игр сегодня
-        .num 415
+        .num {{g_stat_GameToday}}
   .b-info-top
     .b-content
       .icon
@@ -46,10 +46,15 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "ViewStatic",
   components: {
 
+  },
+  computed:{
+    ...mapGetters(['g_stat_UserOnline', 'g_stat_GameToday']),
   }
 };
 

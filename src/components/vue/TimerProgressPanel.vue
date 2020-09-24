@@ -51,7 +51,7 @@ export default {
     },
     computed: {
     // к геттерам обращатся через this
-      ...mapGetters(['itemUserCount', 'g_itemUserAll']),
+      ...mapGetters(['itemUserCount']),
 
       circleDasharray() {
         return `${100 - (this.timeFraction * FULL_DASH_ARRAY).toFixed(2)}`;

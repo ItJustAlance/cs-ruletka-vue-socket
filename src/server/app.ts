@@ -1,8 +1,8 @@
-const app = require('express')()
-const server = require('http').createServer(app)
-const io = require('socket.io')(server)
 
-io.on('connection', socket => {
+const server = require('http').createServer(app)
+const io_s = require('socket.io')(server)
+
+io_s.on('connection', socket => {
   console.log('IO Connected')
 })
 
