@@ -53,6 +53,9 @@ export default {
     g_stat_GameToday(state){
       return state.stat_GameToday;
     },
+      g_itemUserAll(state){
+        return state.stat_itemUserAll;
+      } ,
     g_stat_GameNumber(state){
       return state.stat_GameNumber;
     },

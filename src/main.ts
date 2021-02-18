@@ -5,7 +5,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
-import VueSocketIO from 'vue-socket.io';
+import io from 'socket.io';
 import SocketIO from 'socket.io-client';
 import routes from './router';
 import store from './store';
@@ -44,6 +44,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 // Активация плагинов Vue
 Vue.use(Vuex);
 Vue.use(VueRouter);
+// Vue.use(io);
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -60,21 +61,23 @@ const router = new VueRouter({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      //  component: () => import(/* webpackChunkName: "about" */ "./views/About.vue")
+        component: () => import ('./views/About.vue')
     }
   ]
 })
+/*
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: SocketIO('http://localhost:8080'),
+  connection: SocketIO('http://localhost:8081'),
   vuex: {
     store,
-    actionPrefix: 'SOCKET_',
-    mutationPrefix: 'SOCKET_',
+//   actionPrefix: 'SOCKET_',
+//   mutationPrefix: 'SOCKET_',
   },
   // options: { path: `@/index.html`; }, // Optional options
 }));
-
+*/
 // Vue.use(VueClipboard);
 // library.add(faUserSecret);
 // Vue.use(VueSweetalert2);
